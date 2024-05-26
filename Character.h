@@ -18,7 +18,7 @@ struct Character
      */
     
     virtual const std::string& getName() = 0;
-    virtual std::string getStats() = 0;
+    std::string getStats();
     
     virtual void attack( Character& other );
     void defend();
@@ -26,33 +26,43 @@ struct Character
     void help( Character& other );
     
     int takeDamage(int damage);
+
+    void printStats();
     
-    int getHP() const { return hitPoints; }
-    int getArmorLevel() const { return armor; }
-    int getAttackDamage() const { return attackDamage; }
-    bool getIsDefending() const { return isDefending; }
+    inline int getHP() const { return hitPoints; }
+    inline int getArmorLevel() const { return armor; }
+    inline int getAttackDamage() const { return attackDamage; }
+    inline bool getIsDefending() const { return isDefending; }
+
     
-    const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
-    const std::vector<std::unique_ptr<Item>>& getDefensiveItems() const { return defensiveItems; }
+    inline const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
+    inline const std::vector<std::unique_ptr<Item>>& getDefensiveItems() const { return defensiveItems; }
     
-    void boostArmor( int amount )
+    inline void boostArmor( int amount )
     {
         armor += amount;
         std::cout << getName() << "'s armor level has been boosted to " << armor << std::endl;
     }
     
-    void boostHitPoints( int amount )
+    inline void boostHitPoints( int amount )
     {
         hitPoints += amount;
         std::cout << getName() << "'s hit point level has been boosted to " << hitPoints << std::endl;
     }
     
-    void boostAttackDamage( int amount )
+    inline void boostAttackDamage( int amount )
     {
         attackDamage += amount;
         std::cout << getName() << "'s attack damage level has been boosted to " << attackDamage << std::endl;
     }
 
+    inline void resetAttackDamage()
+    {
+        attackDamage = *initialAttackDamage;
+        std::cout << getName() << "'s attack damage level has been reseted to " << attackDamage << std::endl;
+    }
+
+/*
     void printStats()
     {
         std::cout << getName() << "'s stats: " << std::endl;
@@ -61,6 +71,7 @@ struct Character
         std::cout << std::endl;
         std::cout << std::endl;
     }
+*/
 protected:
     std::vector<std::unique_ptr<Item>> defensiveItems;
     std::vector<std::unique_ptr<Item>> helpfulItems;

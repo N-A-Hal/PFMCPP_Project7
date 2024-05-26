@@ -4,12 +4,16 @@
 #include <memory>
 #include "Item.h"
 
+struct Character;
+
 
 std::vector<std::unique_ptr<Item>> makeHelpfulItems(int num);
 
 std::vector<std::unique_ptr<Item>> makeDefensiveItems(int num);
 
-struct Character;
+std::vector<std::unique_ptr<Item>> makeAttackItems(int num);
+
+
 std::string getCharacterStats(Character* ch);
 
 void useDefensiveItem(Character*, Item&);
