@@ -15,9 +15,7 @@ const std::string& Paladin::getName()
     return name;
 }
 
-/*
 std::string Paladin::getStats()
 {
-    return "";
+    return getCharacterStats(this);
 }
-*/

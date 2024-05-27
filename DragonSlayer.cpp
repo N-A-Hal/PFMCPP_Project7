@@ -57,9 +57,7 @@ void DragonSlayer::attack(Character& other)
     Character::attack(other);
 }
 
-/*
 std::string DragonSlayer::getStats()
 {
-    return "";
+    return getCharacterStats(this);
 }
-*/

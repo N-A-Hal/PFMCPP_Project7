@@ -18,7 +18,7 @@ struct Character
      */
     
     virtual const std::string& getName() = 0;
-    std::string getStats();
+    virtual std::string getStats() = 0;
     
     virtual void attack( Character& other );
     void defend();
@@ -35,28 +35,28 @@ struct Character
     inline bool getIsDefending() const { return isDefending; }
 
     
-    inline const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
-    inline const std::vector<std::unique_ptr<Item>>& getDefensiveItems() const { return defensiveItems; }
+    const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
+    const std::vector<std::unique_ptr<Item>>& getDefensiveItems() const { return defensiveItems; }
     
-    inline void boostArmor( int amount )
+    void boostArmor( int amount )
     {
         armor += amount;
         std::cout << getName() << "'s armor level has been boosted to " << armor << std::endl;
     }
     
-    inline void boostHitPoints( int amount )
+    void boostHitPoints( int amount )
     {
         hitPoints += amount;
         std::cout << getName() << "'s hit point level has been boosted to " << hitPoints << std::endl;
     }
     
-    inline void boostAttackDamage( int amount )
+    void boostAttackDamage( int amount )
     {
         attackDamage += amount;
         std::cout << getName() << "'s attack damage level has been boosted to " << attackDamage << std::endl;
     }
 
-    inline void resetAttackDamage()
+    void resetAttackDamage()
     {
         attackDamage = *initialAttackDamage;
         std::cout << getName() << "'s attack damage level has been reseted to " << attackDamage << std::endl;
@@ -80,6 +80,7 @@ protected:
     bool isDefending = false;
 private:
     std::unique_ptr<int> initialHitPoints, initialArmorLevel, initialAttackDamage;
-    
+
+    void lvlUpStats(int&, int&);
     void attackInternal(Character& other);
 };
