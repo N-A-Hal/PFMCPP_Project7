@@ -1,9 +1,11 @@
 #include "Character.h"
 #include <iostream>
 #include <vector>
+//#include <cassert>
 
 #include "DefensiveItem.h"
 #include "HelpfulItem.h"
+#include "Utility.h"
 
 Character::Character(int hp, int armor_, int attackDamage_ ) :
     hitPoints(hp),
@@ -86,8 +88,16 @@ int Character::takeDamage(int damage)
     return hitPoints;
 }
 
+void Character::lvlUpStats(int& current, int& initial)
+{
+    if (current < initial)
+    {
+        current = initial;
+    }
+    current *= 1.1;
+    initial = current;
+}
 
-#include <cassert>
 void Character::attackInternal(Character& other)
 {
     if( other.hitPoints <= 0 )
@@ -98,7 +108,36 @@ void Character::attackInternal(Character& other)
             b) your stats are boosted 10%
             c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character.
       */
-        assert(false);
+
+        lvlUpStats(hitPoints, *initialHitPoints);
+        lvlUpStats(armor, *initialArmorLevel);
+        lvlUpStats(attackDamage, *initialAttackDamage);
+        
+        //a)
+        /*
+        if( hitPoints < *initialHitPoints )
+        {
+            hitPoints = *initialHitPoints;
+        }
+        if( armor < *initialArmorLevel )
+        {
+            armor = *initialArmorLevel;
+        }
+        if ( attackDamage < *initialAttackDamage )
+        {
+            attackDamage = *initialAttackDamage;
+        }
+        //b)
+        hitPoints *= 1.1;
+        armor *= 1.1;
+        attackDamage *= 1.1;
+        //c)
+        initialHitPoints.reset( new int(hitPoints) );
+        initialArmorLevel.reset( new int( armor) );
+        initialAttackDamage.reset( new int( attackDamage) );
+        */
+        
+        //assert(false);
         std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
     }
 }
@@ -106,7 +145,7 @@ void Character::attackInternal(Character& other)
 void Character::printStats()
 {
     std::cout << getName() << "'s stats: " << std::endl;
-    assert(false);
+    //assert(false);
     /*
     make your getStats() use a function from the Utility.h
     */

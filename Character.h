@@ -26,11 +26,14 @@ struct Character
     void help( Character& other );
     
     int takeDamage(int damage);
+
+    void printStats();
     
-    int getHP() const { return hitPoints; }
-    int getArmorLevel() const { return armor; }
-    int getAttackDamage() const { return attackDamage; }
-    bool getIsDefending() const { return isDefending; }
+    inline int getHP() const { return hitPoints; }
+    inline int getArmorLevel() const { return armor; }
+    inline int getAttackDamage() const { return attackDamage; }
+    inline bool getIsDefending() const { return isDefending; }
+
     
     const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
     const std::vector<std::unique_ptr<Item>>& getDefensiveItems() const { return defensiveItems; }
@@ -53,6 +56,13 @@ struct Character
         std::cout << getName() << "'s attack damage level has been boosted to " << attackDamage << std::endl;
     }
 
+    void resetAttackDamage()
+    {
+        attackDamage = *initialAttackDamage;
+        std::cout << getName() << "'s attack damage level has been reseted to " << attackDamage << std::endl;
+    }
+
+/*
     void printStats()
     {
         std::cout << getName() << "'s stats: " << std::endl;
@@ -61,6 +71,7 @@ struct Character
         std::cout << std::endl;
         std::cout << std::endl;
     }
+*/
 protected:
     std::vector<std::unique_ptr<Item>> defensiveItems;
     std::vector<std::unique_ptr<Item>> helpfulItems;
@@ -69,6 +80,7 @@ protected:
     bool isDefending = false;
 private:
     std::unique_ptr<int> initialHitPoints, initialArmorLevel, initialAttackDamage;
-    
+
+    void lvlUpStats(int&, int&);
     void attackInternal(Character& other);
 };
